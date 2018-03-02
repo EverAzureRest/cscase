@@ -1,0 +1,60 @@
+{
+"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+"contentVersion": "1.0.0.0",
+"parameters": {
+    "vnetName": {
+        "value": ""
+    },
+    "vnetAddressPrefix": {
+        "value": "1"
+    },
+    "subnet1Prefix": {
+        "value": ""
+    },
+    "subnet1Name": {
+        "value": ""
+    },
+    "subnet2Prefix": {
+        "value": ""
+    },
+    "subnet2Name": {
+        "value": ""
+    },
+    "subnet3Prefix": {
+        "value": ""
+    },
+    "subnet3Name": {
+        "value": ""
+    },
+    "subnet4Name": {
+        "value": ""
+    },
+    "subnet4Prefix": {
+        "value": ""
+    },
+    "subnet5Name": {
+        "value": ""
+    },
+    "subnet5Prefix": {
+        "value": ""
+    },
+    "applicationTag": {
+        "value": ""
+    },
+    "costcenterTag": {
+        "value": ""
+    },
+    "environmentTag": {
+        "value": ""
+    },
+    "managedbyTag": {
+        "value": ""
+    },
+    "primaryDNS": {
+        "value": ""
+    },
+    "secondaryDNS": {
+        "value": ""
+    }
+}
+}

@@ -1,0 +1,36 @@
+{
+"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+"contentVersion": "1.0.0.0",
+"parameters": {
+    "aseName": {
+        "value": ""
+    },
+    "aseLocation": { 
+        "value": ""
+     },
+    "existingVnetResourceGroup": {
+        "value": ""
+    },
+    "existingVnetName": {
+        "value": ""
+    },
+    "subnetName": {
+        "value": ""
+    },
+    "dnsSuffix": {
+        "value": ""
+    },
+    "applicationTag": {
+        "value": ""
+      },
+      "costcenterTag": {
+        "value": ""
+      },
+      "environmentTag": {
+        "value": ""
+      },
+      "managedbyTag": {
+        "value": ""
+      }
+}
+}

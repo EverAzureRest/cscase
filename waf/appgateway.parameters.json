@@ -1,0 +1,36 @@
+{
+"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+"contentVersion": "1.0.0.0",
+"parameters": {
+    "appGatewayName": {
+        "value": ""
+    },
+    "publicIPName": {
+        "value": ""
+    },
+    "existingVnetName": {
+        "value": ""
+    },
+    "subnetName": {
+        "value": ""
+    },
+    "backendIpAddress": {
+        "value": ""
+    },
+    "wafMode": {
+        "value": ""
+    },
+    "applicationTag": {
+        "value": ""
+      },
+      "costcenterTag": {
+        "value": ""
+      },
+      "environmentTag": {
+        "value": ""
+      },
+      "managedbyTag": {
+        "value": ""
+      }
+}
+}

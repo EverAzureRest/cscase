@@ -1,0 +1,173 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vnetName": {
+      "type": "string",
+      "metadata": {
+        "description": "VNet name"
+      }
+    },
+    "vnetAddressPrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "CIDR Range for VNET"
+      }
+    },
+    "subnet1Prefix": {
+      "type": "string",
+      "metadata": {
+        "description": "Gateway Subnet CIDR Prefix"
+      }
+    },
+    "subnet1Name": {
+      "type": "string",
+      "metadata": {
+        "description": "Gateway Subnet Name"
+      }
+    },
+    "subnet2Prefix": {
+      "type": "string",
+      "metadata": {
+        "description": "API Gateway Subnet CIDR Prefix"
+      }
+    },
+    "subnet2Name": {
+      "type": "string",
+      "metadata": {
+        "description": "API Gateway Subnet Name"
+      }
+    },
+    "subnet3Name": {
+      "type": "string",
+      "metadata": {
+        "description": "Management Subnet Name"
+      }
+    },
+    "subnet3Prefix": {
+      "type": "string",
+      "metadata": {
+        "description": "Management Subnet CIDR Prefix"
+      }
+    },
+    "subnet4Name": {
+      "type": "string",
+      "metadata": {
+        "description": "ASE Internal Subnet Name"
+      }
+    },
+    "subnet4Prefix": {
+      "type": "string",
+      "metadata": {
+        "description": "ASE Internal Subnet CIDR Prefix - MUST BE AT LEAST A /25"
+      }
+    },
+    "subnet5Name": {
+      "type": "string",
+      "metadata": {
+        "description": "App Gateway Subnet Name"
+      }
+    },
+    "subnet5Prefix": {
+      "type": "string",
+      "metadata": {
+        "description": "App Gateway Subnet CIDR Prefix"
+      }
+    },
+    "applicationTag": {
+      "type": "string",
+      "metadata": {
+        "description": "Requried tag"
+      }
+    },
+    "costcenterTag": {
+      "type": "string",
+      "metadata": {
+        "description": "Required tag"
+      }
+    },
+    "environmentTag": {
+      "type": "string",
+      "metadata": {
+        "description": "Required tag"
+      }
+    },
+    "managedbyTag": {
+      "type": "string",
+      "metadata": {
+        "description": "Required Tag"
+      }
+    },
+    "primaryDNS": {
+      "type": "string",
+      "metadata": {
+        "description" : "IP address of the primary DNS server"
+      }
+    },
+    "secondaryDNS": {
+      "type": "string",
+      "metadata": {
+        "description": "IP address of the secondary DNS server"
+      }
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[parameters('vnetName')]",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "application": "[parameters('applicationTag')]",
+        "cost-center": "[parameters('costcenterTag')]",
+        "environment": "[parameters('environmentTag')]",
+        "managed-by": "[parameters('managedbyTag')]"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('vnetAddressPrefix')]"
+          ]
+        },
+        "dhcpOptions":{
+          "dnsServers": [
+            "[parameters('primaryDNS')]",
+            "[parameters('secondaryDNS')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[parameters('subnet1Name')]",
+            "properties": {
+              "addressPrefix": "[parameters('subnet1Prefix')]"
+            }
+          },
+          {
+            "name": "[parameters('subnet2Name')]",
+            "properties": {
+              "addressPrefix": "[parameters('subnet2Prefix')]"
+            }
+          },
+          {
+            "name": "[parameters('subnet3Name')]",
+            "properties": {
+              "addressPrefix": "[parameters('subnet3Prefix')]"
+            }
+          },
+          {
+            "name": "[parameters('subnet4Name')]",
+            "properties": {
+              "addressPrefix": "[parameters('subnet4Prefix')]"
+            }
+          },
+          {
+            "name": "[parameters('subnet5Name')]",
+            "properties": {
+              "addressPrefix": "[parameters('subnet5Prefix')]"
+            }
+          }
+        ]
+      }
+    }
+  ]
+  }

@@ -1,0 +1,103 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "aseName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the App Service Environment"
+            }
+        },
+        "aseLocation": { 
+            "type": "string",
+            "metadata": { 
+                "description": "Location of the App Service Environment" 
+            } 
+         },
+        "existingVnetResourceGroup": {
+            "type": "string",
+            "metadata": {
+                "description": "Resource Group where the existing VNET is deployed"
+            }
+        },
+        "existingVnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the existing Vnet to place the ASE"
+            }
+        },
+        "subnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "EMPTY, but existing Subnet name that will contain the App Service Environment"
+            }
+        },
+        "internalLoadBalancingMode": {
+            "type": "int",
+            "defaultValue": 3,
+            "allowedValues": [0,1,2,3],
+            "metadata": {
+                "description": "0 = public VIP only, 1 = only ports 80/443 are mapped to ILB VIP, 2 = only FTP ports are mapped to ILB VIP, 3 = both ports 80/443 and FTP ports are mapped to an ILB VIP."
+            }
+        },
+        "dnsSuffix": {
+            "type": "string",
+            "metadata": {
+                "description": "Used *only* when deploying an ILB enabled ASE.  Set this to the root domain associated with the ASE.  For example: contoso.com"
+            }
+        },
+        "applicationTag": {
+            "type": "string",
+            "metadata": {
+              "description": "Requried tag"
+            }
+          },
+          "costcenterTag": {
+            "type": "string",
+            "metadata": {
+              "description": "Required tag"
+            }
+          },
+          "environmentTag": {
+            "type": "string",
+            "metadata": {
+              "description": "Required tag"
+            }
+          },
+          "managedbyTag": {
+            "type": "string",
+            "metadata": {
+              "description": "Required Tag"
+            }
+          }
+    },
+    "variables": {
+        "vnetid": "[resourceId(parameters('existingVnetResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('existingVnetName'))]"
+    },
+    "resources": [
+      {
+        "apiVersion": "2016-09-01",
+        "type": "Microsoft.Web/hostingEnvironments",
+        "name": "[parameters('aseName')]",
+        "kind": "ASEV2",
+        "location": "[parameters('aseLocation')]",
+        "tags": {
+            "application": "[parameters('applicationTag')]",
+            "cost-center": "[parameters('costcenterTag')]",
+            "environment": "[parameters('environmentTag')]",
+            "managed-by": "[parameters('managedbyTag')]"
+          },
+        "properties": {
+          "name": "[parameters('aseName')]",
+          "location": "[parameters('aseLocation')]",
+          "ipSslAddressCount": 0,
+          "internalLoadBalancingMode": "[parameters('internalLoadBalancingMode')]",
+          "dnsSuffix" : "[parameters('dnsSuffix')]",
+          "virtualNetwork": {
+            "Id": "[variables('vnetid')]",
+            "Subnet": "[parameters('subnetName')]"
+          }
+        }
+      }
+    ]
+}
