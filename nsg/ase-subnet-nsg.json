@@ -1,0 +1,174 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "nsgName" : {
+      "type": "string",
+      "metadata": {
+          "description": "Name of the Network Security Group"
+        }
+      },
+      "rule1-Name": {
+          "type": "string",
+          "defaultValue": "Allow Web",
+          "metadata": {
+              "description": "Name of the access rule"
+          }
+      },
+      "rule1-sourcePortRange": {
+          "type": "string",
+          "defaultValue": "*",
+          "metadata": {
+              "description": "Source Port Range e.g. 1002-60045"
+          }
+      },
+      "rule1-destinationPortRange": {
+          "type": "string",
+          "defaultValue": "80",
+          "metadata": {
+              "description": "Target Port Range"
+          }
+      },
+      "rule1-protocol": {
+          "type": "string",
+          "defaultValue": "Tcp",
+          "metadata": {
+              "description": "Protocol, Tcp or Udp"
+          },
+          "allowedValues": [
+              "Tcp",
+              "Udp"
+          ]
+      },
+      "rule1-accessRule": {
+          "type": "string",
+          "defaultValue": "Allow",
+          "allowedValues": [
+              "Allow",
+              "Deny"
+          ],
+          "metadata": {
+              "description": "Whether to allow or deny the traffic"
+          }
+      },
+      "rule1-direction": {
+          "type": "string",
+          "defaultValue": "Inbound",
+          "allowedValues": [
+              "Inbound",
+              "Outbound"
+          ]
+      },
+      "rule2-Name": {
+        "type": "string",
+        "defaultValue": "Allow 443",
+        "metadata": {
+            "description": "Name of the access rule"
+        }
+    },
+    "rule2-sourcePortRange": {
+        "type": "string",
+        "defaultValue": "*",
+        "metadata": {
+            "description": "Source Port Range e.g. 1002-60045"
+        }
+    },
+    "rule2-destinationPortRange": {
+        "type": "string",
+        "defaultValue": "443",
+        "metadata": {
+            "description": "Target Port Range"
+        }
+    },
+    "rule2-protocol": {
+        "type": "string",
+        "defaultValue": "Tcp",
+        "metadata": {
+            "description": "Protocol, Tcp or Udp"
+        },
+        "allowedValues": [
+            "Tcp",
+            "Udp"
+        ]
+    },
+    "rule2-accessRule": {
+        "type": "string",
+        "defaultValue": "Allow",
+        "allowedValues": [
+            "Allow",
+            "Deny"
+        ],
+        "metadata": {
+            "description": "Whether to allow or deny the traffic"
+        }
+    },
+    "rule2-direction": {
+        "type": "string",
+        "defaultValue": "Inbound",
+        "allowedValues": [
+            "Inbound",
+            "Outbound"
+        ]
+    },
+
+      "tag1": {
+          "type": "string",
+          "metadata": {
+              "description": "tag values come from the master template and are passed in at runtime"
+          }
+      },
+      "tag2": {
+          "type": "string"
+      },
+      "tag3": {
+          "type": "string"
+      },
+      "tag4": {
+        "type": "string"
+      }
+  },
+  "variables": {
+      
+  },
+  "resources": [
+      {
+        "name": "[parameters('nsgName')]",
+        "type": "Microsoft.Network/networkSecurityGroups",
+        "apiVersion": "2017-10-01",
+        "location": "[resourceGroup().location]",
+        "tags":  {
+            "application": "[parameters('tag1')]",
+            "cost-center": "[parameters('tag2')]",
+            "environment": "[parameters('tag3')]",
+            "managed-by": "[parameters('tag4')]"
+          },
+        "properties": {
+            "securityRules": [
+            {
+                "id": "[parameters('rule1-Name')]",
+                "properties": {
+                "protocol": "[parameters('rule1-protocol')]",
+                "sourcePortRange": "[parameters('rule1-sourcePortRange')]",
+                "destinationPortRange": "[parameters('rule1-destinationPortRange')]",
+                "sourceAddressPrefix": "string",
+                "access": "[parameters('rule1-accessRule')]",
+                "direction":"[parameters('rule1-direction')]"
+                }
+            },
+            {
+                "id": "[parameters('rule2-Name')]",
+                "properties": {
+                "protocol": "[parameters('rule2-protocol')]",
+                "sourcePortRange": "[parameters('rule2-sourcePortRange')]",
+                "destinationPortRange": "[parameters('rule2-destinationPortRange')]",
+                "sourceAddressPrefix": "string",
+                "access": "[parameters('rule2-accessRule')]",
+                "direction":"[parameters('rule2-direction')]"
+                }
+            }
+
+        ]
+        }
+      }
+  ]
+}

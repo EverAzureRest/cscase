@@ -109,14 +109,59 @@
       "metadata": {
         "description": "IP address of the secondary DNS server"
       }
+    },
+    "_nsgartifactsLocation": {
+      "type": "string",
+      "defaultValue": "https://raw.githubusercontent/lorax79/cscase/master/nsg"
+    },
+    "nsgName": {
+      "type": "string"
     }
+  },
+  "variables": {
+    "aseNSG": "[concat(parameters('_nsgartifactsLocation'), '/ase-subnet-nsg.json')]",
+    "nsgID": "[resourceID(resourceGroup(), 'Microsoft.Network/networkSecurityGroups/', parameters('nsgName'))]"
   },
   "resources": [
     {
-      "apiVersion": "2016-03-30",
+        "type": "Microsoft.Resources/deployments",
+        "apiVersion": "2016-02-01",
+        "name": "nsgDeployment",
+        "dependsOn": [
+        ],
+        "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+            "uri": "[variables('aseNSG')]",
+            "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+            "nsgName": {
+              "value": "[parameters('nsgName')]"
+            },
+            "tag1": {
+              "value": "[parameters('applicationTag')]"
+            },
+            "tag2": {
+              "value": "[parameters('costcenterTag')]"
+            },
+            "tag3": {
+              "value": "[parameters('environmentTag')]"
+            },
+            "tag4": {
+              "value": "[parameters('managedbyTag')]"
+            }
+          }
+        }
+      },
+    {
+      "apiVersion": "2017-10-01",
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[parameters('vnetName')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', 'nsgDeployment')]"
+      ],
       "tags": {
         "application": "[parameters('applicationTag')]",
         "cost-center": "[parameters('costcenterTag')]",
@@ -157,7 +202,10 @@
           {
             "name": "[parameters('subnet4Name')]",
             "properties": {
-              "addressPrefix": "[parameters('subnet4Prefix')]"
+              "addressPrefix": "[parameters('subnet4Prefix')]",
+              "networkSecurityGroup": {
+                "id": "[variables('nsgID')]"
+              }
             }
           },
           {
