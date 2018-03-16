@@ -22,6 +22,13 @@
               "description": "Source Port Range e.g. 1002-60045"
           }
       },
+      "rule1-sourceAddressPrefix": {
+          "type": "string",
+          "defaultValue": "*",
+          "metadata": {
+              "description": "The CIDR or source IP range. Asterix '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork', 'AzureLoadBalancer' and 'Internet' can also be used. If this is an ingress rule, specifies where network traffic originates from."
+          }
+      },
       "rule1-destinationPortRange": {
           "type": "string",
           "defaultValue": "80",
@@ -71,6 +78,13 @@
         "defaultValue": "*",
         "metadata": {
             "description": "Source Port Range e.g. 1002-60045"
+        }
+    },
+    "rule2-sourceAddressPrefix": {
+        "type": "string",
+        "defaultValue": "*",
+        "metadata": {
+            "description": "The CIDR or source IP range. Asterix '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork', 'AzureLoadBalancer' and 'Internet' can also be used. If this is an ingress rule, specifies where network traffic originates from."
         }
     },
     "rule2-destinationPortRange": {
@@ -150,7 +164,7 @@
                 "protocol": "[parameters('rule1-protocol')]",
                 "sourcePortRange": "[parameters('rule1-sourcePortRange')]",
                 "destinationPortRange": "[parameters('rule1-destinationPortRange')]",
-                "sourceAddressPrefix": "string",
+                "sourceAddressPrefix": "[parameters('rule1-sourceAddressPrefix')]",
                 "access": "[parameters('rule1-accessRule')]",
                 "direction":"[parameters('rule1-direction')]"
                 }
@@ -161,7 +175,7 @@
                 "protocol": "[parameters('rule2-protocol')]",
                 "sourcePortRange": "[parameters('rule2-sourcePortRange')]",
                 "destinationPortRange": "[parameters('rule2-destinationPortRange')]",
-                "sourceAddressPrefix": "string",
+                "sourceAddressPrefix": "[parameters('rule2-sourceAddressPrefix')]",
                 "access": "[parameters('rule2-accessRule')]",
                 "direction":"[parameters('rule2-direction')]"
                 }
