@@ -112,7 +112,7 @@
     },
     "_nsgartifactsLocation": {
       "type": "string",
-      "defaultValue": "https://raw.githubusercontent/lorax79/cscase/master/nsg"
+      "defaultValue": "https://raw.githubusercontent.com/lorax79/cscase/master/nsg"
     },
     "nsgName": {
       "type": "string"
@@ -120,7 +120,7 @@
   },
   "variables": {
     "aseNSG": "[concat(parameters('_nsgartifactsLocation'), '/ase-subnet-nsg.json')]",
-    "nsgID": "[resourceID(resourceGroup(), 'Microsoft.Network/networkSecurityGroups/', parameters('nsgName'))]"
+    "nsgID": "[concat(resourceGroup().Name, '/Microsoft.Network/networkSecurityGroups/', parameters('nsgName'))]"
   },
   "resources": [
     {

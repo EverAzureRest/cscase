@@ -124,12 +124,11 @@
             "Outbound"
         ]
     },
-
-      "tag1": {
-          "type": "string",
-          "metadata": {
-              "description": "tag values come from the master template and are passed in at runtime"
-          }
+    "tag1": {
+        "type": "string",
+        "metadata": {
+            "description": "tag values come from the master template and are passed in at runtime"
+        }
       },
       "tag2": {
           "type": "string"
@@ -159,24 +158,27 @@
         "properties": {
             "securityRules": [
             {
-                "id": "[parameters('rule1-Name')]",
-                "properties": {
+                "name": "[parameters('rule1-Name')]",
+                "properties": 
+                {
                 "protocol": "[parameters('rule1-protocol')]",
                 "sourcePortRange": "[parameters('rule1-sourcePortRange')]",
                 "destinationPortRange": "[parameters('rule1-destinationPortRange')]",
                 "sourceAddressPrefix": "[parameters('rule1-sourceAddressPrefix')]",
                 "access": "[parameters('rule1-accessRule')]",
+                "priority": 100,
                 "direction":"[parameters('rule1-direction')]"
                 }
             },
             {
-                "id": "[parameters('rule2-Name')]",
+                "name": "[parameters('rule2-Name')]",
                 "properties": {
                 "protocol": "[parameters('rule2-protocol')]",
                 "sourcePortRange": "[parameters('rule2-sourcePortRange')]",
                 "destinationPortRange": "[parameters('rule2-destinationPortRange')]",
                 "sourceAddressPrefix": "[parameters('rule2-sourceAddressPrefix')]",
                 "access": "[parameters('rule2-accessRule')]",
+                "priority": 101,
                 "direction":"[parameters('rule2-direction')]"
                 }
             }
