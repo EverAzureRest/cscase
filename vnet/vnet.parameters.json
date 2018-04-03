@@ -6,7 +6,7 @@
         "value": ""
     },
     "vnetAddressPrefix": {
-        "value": "1"
+        "value": ""
     },
     "subnet1Prefix": {
         "value": ""
@@ -48,12 +48,15 @@
         "value": ""
     },
     "managedbyTag": {
-        "value": ""
+        "value": "j"
     },
     "primaryDNS": {
         "value": ""
     },
     "secondaryDNS": {
+        "value": ""
+    },
+    "nsgName": {
         "value": ""
     }
 }

@@ -120,7 +120,7 @@
   },
   "variables": {
     "aseNSG": "[concat(parameters('_nsgartifactsLocation'), '/ase-subnet-nsg.json')]",
-    "nsgID": "[concat(resourceGroup().Name, '/Microsoft.Network/networkSecurityGroups/', parameters('nsgName'))]"
+    "nsgID": "[concat(subscription().Id, '/resourceGroups/', resourceGroup().Name, '/providers/', 'Microsoft.Network/networkSecurityGroups/', parameters('nsgName'))]"
   },
   "resources": [
     {
