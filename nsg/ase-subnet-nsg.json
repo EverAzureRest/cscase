@@ -130,19 +130,19 @@
         "metadata": {
             "description": "tag values come from the master template and are passed in at runtime"
         },
-        "defaultValue": "testapp"
+        "defaultValue": ""
       },
       "tag2": {
           "type": "string",
-          "defaultValue": "100029"
+          "defaultValue": ""
       },
       "tag3": {
           "type": "string",
-          "defaultValue": "test"
+          "defaultValue": ""
       },
       "tag4": {
         "type": "string",
-        "defaultValue": "jorsmith@microosft"
+        "defaultValue": ""
       }
   },
   "variables": {
